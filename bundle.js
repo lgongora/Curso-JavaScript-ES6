@@ -22,69 +22,152 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var List = /*#__PURE__*/function () {
-  function List() {
-    _classCallCheck(this, List);
+// 1º Exercício
+var Usuario = /*#__PURE__*/function () {
+  function Usuario(email, password) {
+    _classCallCheck(this, Usuario);
 
-    this.data = [];
+    this.email = email;
+    this.password = password;
+    this.admin = false;
   }
 
-  _createClass(List, [{
-    key: "add",
-    value: function add(data) {
-      this.data.push(data);
-      console.log(this.data);
+  _createClass(Usuario, [{
+    key: "isAdmin",
+    value: function isAdmin() {
+      if (this.admin === true) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }]);
 
-  return List;
+  return Usuario;
 }();
 
-var TodoList = /*#__PURE__*/function (_List) {
-  _inherits(TodoList, _List);
+var Admin = /*#__PURE__*/function (_Usuario) {
+  _inherits(Admin, _Usuario);
 
-  var _super = _createSuper(TodoList);
+  var _super = _createSuper(Admin);
 
-  function TodoList() {
+  function Admin() {
     var _this;
 
-    _classCallCheck(this, TodoList);
+    _classCallCheck(this, Admin);
 
     _this = _super.call(this);
-    _this.usuario = 'Diego';
+    _this.admin = true;
     return _this;
   }
 
-  _createClass(TodoList, [{
-    key: "mostraUsuario",
-    value: function mostraUsuario() {
-      console.log(this.usuario);
-    }
-  }]);
+  return Admin;
+}(Usuario);
 
-  return TodoList;
-}(List);
+var User1 = new Usuario('email@teste.com', 'senha123');
+var Adm1 = new Admin('email@teste.com', 'senha123');
+console.log(User1.isAdmin()); // false
 
-var Matematica = /*#__PURE__*/function () {
-  function Matematica() {
-    _classCallCheck(this, Matematica);
+console.log(Adm1.isAdmin()); // true
+// 2º Exercício
+
+var usuarios = [{
+  nome: 'Diego',
+  idade: 23,
+  empresa: 'Rocketseat'
+}, {
+  nome: 'Gabriel',
+  idade: 15,
+  empresa: 'Rocketseat'
+}, {
+  nome: 'Lucas',
+  idade: 30,
+  empresa: 'Facebook'
+}]; // 2.1
+
+var newUsers2 = usuarios.map(function (item) {
+  return item.idade;
+});
+console.log(newUsers2); // 2.2
+
+var newUsers3 = usuarios.filter(function (item) {
+  if (item.idade > 18) {
+    return item;
   }
+});
+console.log(newUsers3); // 2.3
 
-  _createClass(Matematica, null, [{
-    key: "soma",
-    value: function soma(a, b) {
-      return a + b;
-    }
-  }]);
+var newUsers4 = usuarios.find(function (item) {
+  if (item.empresa === 'Google') {
+    return item;
+  }
+});
+console.log(newUsers4); // 2.4
 
-  return Matematica;
-}();
+var newUsers5 = usuarios.map(function (item) {
+  var temp = Object.assign({}, item);
+  temp.idade *= 2;
+  return temp;
+}).filter(function (item) {
+  if (item.idade <= 50) {
+    return item;
+  }
+});
+console.log(newUsers5); //3.1
 
-var MinhaLista = new TodoList();
+var arr = [1, 2, 3, 4, 5];
+arr.map(function (item) {
+  return item + 10;
+}); // 3.2
+// Dica: Utilize uma constante pra function
 
-document.getElementById('novotodo').onclick = function () {
-  MinhaLista.add('Novo todo');
+var usuario = {
+  nome: 'Diego',
+  idade: 23
 };
 
-MinhaLista.mostraUsuario();
-console.log(Matematica.soma(1, 2));
+var mostraIdade = function mostraIdade(usuario) {
+  return usuario.idade;
+};
+
+console.log(mostraIdade(usuario)); // 3.3
+// Dica: Utilize uma constante pra function
+
+var nome3 = "Diego";
+var idade = 23;
+
+var mostraUsuario = function mostraUsuario() {
+  var nome3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Diego';
+  var idade = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 18;
+  return {
+    nome3: nome3,
+    idade: idade
+  };
+};
+
+console.log(mostraUsuario(nome3, idade));
+console.log(mostraUsuario(nome3)); // 3.4
+
+var promise = function promise() {
+  return new Promise(function (resolve, reject) {
+    return resolve();
+  });
+}; //4.1
+
+
+var objEmpresa = {
+  nome: 'Rocketseat',
+  endereco: {
+    cidade: 'Rio do Sul',
+    estado: 'SC'
+  }
+};
+var nome = objEmpresa.nome,
+    _objEmpresa$endereco = objEmpresa.endereco,
+    cidade = _objEmpresa$endereco.cidade,
+    estado = _objEmpresa$endereco.estado;
+console.log(nome); // Rocketseat
+
+console.log(cidade); // Rio do Sul
+
+console.log(estado); // SC
